@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,5 +56,15 @@ Route::get('/inscription', function () {
 
 
 Route::post('/inscription', function () {
+    // j'instancie un objet
+    $utilisateur = new User();
+    // dans la colonne email, j'insère le contenu de l'input du form
+    $utilisateur->email = request('email');
+    // dans la colonne mot_de_passe, j'insère le contenu de l'input du form
+    // et je hash le mp
+    $utilisateur->mot_de_passe = bcrypt(request('password'));
+    // permet de l'envoyer en bdd
+    $utilisateur->save();
+
     return 'votre email est ' . request('email');
 });;
