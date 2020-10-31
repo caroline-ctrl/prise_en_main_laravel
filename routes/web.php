@@ -39,3 +39,11 @@ Route::get('/bonjour/{name_url}', function () {
         'name_view' => $name_function
     ]);
 });
+
+Route::get('/inscription', function () {
+    return view('inscription');
+});
+
+Route::post('/inscription', function () {
+    return 'formulaire recu';
+});;
