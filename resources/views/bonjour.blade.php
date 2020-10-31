@@ -1,6 +1,9 @@
-@include('header')
+@extends('vue_principale')
 
-{{-- blade fournit un raccourci pour afficher une variable dans la vue {{ }} --}}
-<h1>Bonjour {{ $name_view }}</h1>
+@section('contenu')
 
-@include('footer')
+    {{-- blade fournit un raccourci pour afficher une variable dans la vue {{ }} --}}
+    <h1>Bonjour {{ $name_view }}</h1>
+    
+@endsection
+
