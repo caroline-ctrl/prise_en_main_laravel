@@ -56,9 +56,10 @@ Route::get('/inscription', function () {
 
 
 
+// permet de créer un utilisateur
 Route::post('/inscription', function () {
     // j'instancie un objet
-    // j'utilise la methode statique "create" de Eloquent
+    // j'utilise la methode statique create() de Eloquent
     // cette méthode statique enregistre automatique l'utilisateur en bdd
     Users::create([
         'email' => request('email'),
@@ -66,4 +67,18 @@ Route::post('/inscription', function () {
     ]);
 
     return 'votre email est ' . request('email');
-});;
+});
+
+
+// récupérer les données de la bdd
+// grace a la methode statique all()
+Route::get('/users', function () {
+    // j'instancie un objet
+    // j'utilise la methode statique all() qui retourn un tableau
+    $users = Users::all();
+
+    // je renvoie a la vue la variable
+    return view('users', [
+        'users' => $users
+    ]);
+});
