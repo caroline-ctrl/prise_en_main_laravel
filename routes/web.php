@@ -29,6 +29,13 @@ Route::get('/salut/{prenom}', function() {
     return 'Salut ' . request('prenom');
 });
 
-Route::get('/bonjour/{nom}', function () {
-    return view('bonjour');
+// pour garder la vue propre et organisé, il faut éviter de faire des appels de fonction dans la vue
+Route::get('/bonjour/{name_url}', function () {
+    // j'enregistre dans ma variable le contenu récupéré de mon url
+    $name_function = request('name_url');
+    // pour que la vue est accés au contenu de la variable, je la passe dans le return
+    // dans la vue j'appelerai name_view
+    return view('bonjour', [
+        'name_view' => $name_function
+    ]);
 });
