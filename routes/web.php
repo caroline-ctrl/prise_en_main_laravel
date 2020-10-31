@@ -58,6 +58,14 @@ Route::get('/inscription', function () {
 
 // permet de créer un utilisateur
 Route::post('/inscription', function () {
+    // mise en place de régles pour le formulaire
+    // https://laravel.com/docs/5.5/validation#available-validation-rules
+    request()->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required', 'confirmed', 'min:2'],
+        'password_confirmation' => ['required']
+    ]);
+
     // j'instancie un objet
     // j'utilise la methode statique create() de Eloquent
     // cette méthode statique enregistre automatique l'utilisateur en bdd

@@ -7,7 +7,7 @@
 <ul>
     @foreach ($users as $user)
     
-        <li>{{ $user->email }}</li>
+<li>{{ $user->email }}, {{ $user->mot_de_passe}}</li>
 
     @endforeach
 </ul>
