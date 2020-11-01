@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConnexionController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\UsersController;
 use App\Models\User;
@@ -64,3 +65,9 @@ Route::post('/inscription', [InscriptionController::class, 'traitement']);
 // récupérer les données de la bdd
 // appelle le controller dans lequel se trouve la methode liste()
 Route::get('/users', [UsersController::class, 'liste']);
+
+
+Route::get('/connexion', [ConnexionController::class, 'formulaire']);
+
+
+Route::post('/connexion', [ConnexionController::class, 'traitement']);

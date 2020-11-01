@@ -11,6 +11,14 @@ class ConnexionController extends Controller
     }
 
     public function traitement() {
+
+        $result = request()->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        var_dump($result);
+        
         return 'Traitement de formulaire de connexion';
     }
 }
