@@ -71,3 +71,6 @@ Route::get('/connexion', [ConnexionController::class, 'formulaire']);
 
 
 Route::post('/connexion', [ConnexionController::class, 'traitement']);
+
+
+Route::view('/mon-compte', 'mon-compte');
