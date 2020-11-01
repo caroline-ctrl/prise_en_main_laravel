@@ -72,8 +72,8 @@ Route::post('/inscription', function () {
     // j'utilise la methode statique create() de Eloquent
     // cette méthode statique enregistre automatique l'utilisateur en bdd
     Users::create([
-        'email' => request('email'),
-        'mot_de_passe' => bcrypt(request('password'))
+        'email' => request('email'), // je recupère le contenu de l'input
+        'mot_de_passe' => bcrypt(request('password')) // je recupère le contenu de l'input et je le hash
     ]);
 
     return 'votre email est ' . request('email');
@@ -81,14 +81,5 @@ Route::post('/inscription', function () {
 
 
 // récupérer les données de la bdd
-// grace a la methode statique all()
-Route::get('/users', function () {
-    // j'instancie un objet
-    // j'utilise la methode statique all() qui retourn un tableau
-    $users = Users::all();
-
-    // je renvoie a la vue la variable
-    return view('users', [
-        'users' => $users
-    ]);
-});
+// appelle le controller dans lequel se trouve la methode
+Route::get('/users', 'UsersController@liste');
