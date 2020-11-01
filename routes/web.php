@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\UsersController;
 use App\Models\User;
 use App\Models\Users;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// quand on a qu'une vue a retourner sans traitement de controller
+Route::view('/', 'welcome');
 
 
 
@@ -49,37 +50,17 @@ Route::get('/bonjour/{name_url}', function () {
 });
 
 
-
-Route::get('/inscription', function () {
-    return view('inscription');
-});
+// affiche le formulaire
+Route::get('/inscription', [InscriptionController::class, 'formulaire']);
 
 
 
-// permet de créer un utilisateur
-Route::post('/inscription', function () {
-    // mise en place de régles pour le formulaire
-    // https://laravel.com/docs/5.5/validation#available-validation-rules
-    request()->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required', 'confirmed', 'min:2'],
-        'password_confirmation' => ['required']
-    ], [ // permet de personnaliser le message d'erreur
-        'password.min' => 'Pour des raisons de sécurité, votre mot de passe doit faire :min caractères.'
-    ]);
-
-    // j'instancie un objet
-    // j'utilise la methode statique create() de Eloquent
-    // cette méthode statique enregistre automatique l'utilisateur en bdd
-    Users::create([
-        'email' => request('email'), // je recupère le contenu de l'input
-        'mot_de_passe' => bcrypt(request('password')) // je recupère le contenu de l'input et je le hash
-    ]);
-
-    return 'votre email est ' . request('email');
-});
+// récupère le contenu du form
+// créé un user
+// et l'envoie en bdd
+Route::post('/inscription', [InscriptionController::class, 'traitement']);
 
 
 // récupérer les données de la bdd
-// appelle le controller dans lequel se trouve la methode
-Route::get('/users', 'UsersController@liste');
+// appelle le controller dans lequel se trouve la methode liste()
+Route::get('/users', [UsersController::class, 'liste']);
